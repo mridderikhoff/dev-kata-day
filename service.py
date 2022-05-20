@@ -25,5 +25,14 @@ class Service:
 
         return bestElevator, bestWhenAvailable
 
-    # Returns processed event
-    def processNextEvent(self, events: [Event], currentTime: int) -> Event:
+    # Returns processed event that has been assigned to an elevator, and the wait time for processing it
+    def processNextEvents(self, events: [Event], currentTime: int) -> [(Event, int)]:
+        processedEvents = []
+
+        for event in events:
+            bestElevator, bestWhenAvailable = self.getNextElevator(event, currentTime)
+            if bestWhenAvailable <= 0:
+                bestElevator.depart(event, currentTime)
+                processedEvents.add((event, currentTime - event.timestamp))
+
+        return processedEvents

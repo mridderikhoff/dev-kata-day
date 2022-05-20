@@ -16,7 +16,7 @@ class Elevator:
     def available(self, currentTime: int) -> (int, int):
         busyUntil = max(self.arrivalTime - currentTime, 0)
 
-        if busyUntil == 0:
+        if busyUntil <= 0:
             self.arrive()
 
         return busyUntil, self.arrivalFloor
@@ -26,7 +26,7 @@ class Elevator:
         self.occupants -= 1
 
     # assumes there is space for the occupant
-    def add_occupant(self, event: Event, currentTime: int):
+    def depart(self, event: Event, currentTime: int):
         self.currentTime = currentTime
         self.arrivalTime = currentTime + (abs(event.startFloor - event.endFloor) * self.speedPerFloor) + self.stopTime
         self.occupants += 1

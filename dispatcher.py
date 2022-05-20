@@ -1,26 +1,23 @@
 import config
-import service
+# import service
 from event import *
 
 
 class Dispatcher:
-    def __init__(self, events: []):
-        self.events = events
-
-    def simulateTime(self):
+    @staticmethod
+    def simulateTime(events: [Event]):
         currentTime = 0
-        while currentTime < config.secondsPerDay:
-            self.dispatchEvents(currentTime)
+        while currentTime <= config.secondsPerDay:
+            Dispatcher.dispatchEvents(events, currentTime)
             currentTime += 1
 
-    def dispatchEvents(self, currentTime: int):
-        nextEvent = self.events[0]
-
-        while nextEvent.timestamp == currentTime:
-            self.dispatchEvent(nextEvent)
-            self.events.pop(0)
-            nextEvent = self.events[0]
+    @staticmethod
+    def dispatchEvents(events: [Event], currentTime: int):
+        while len(events) > 0 and events[0].timestamp == currentTime:
+            Dispatcher.dispatchEvent(events[0], currentTime)
+            events.pop(0)
 
     @staticmethod
-    def dispatchEvent(event: Event):
+    def dispatchEvent(event: Event, currentTime: int):
+        print(f'eventDispatched for {event.timestamp} at {currentTime}', )
         service.Service.getNextElevator(event)

@@ -1,3 +1,4 @@
+from dispatcher import Dispatcher
 from event import Event
 from eventGenerator import EventGenerator
 
@@ -19,6 +20,6 @@ def printEvents(events):
 if __name__ == '__main__':
     events = EventGenerator.generateEvents(10)
     printEvents(events)
+    Dispatcher.simulateTime(events)
 
-    # call Dispatcher
     # call Service.printResults

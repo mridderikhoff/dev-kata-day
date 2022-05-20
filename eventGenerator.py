@@ -11,7 +11,8 @@ class EventGenerator():
         while i < eventCount:
             events.append(EventGenerator.generateEvent())
             i += 1
-        return events
+
+        return sorted(events, key=lambda x: x.timestamp)
 
     @staticmethod
     def generateEvent():
