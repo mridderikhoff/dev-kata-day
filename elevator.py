@@ -37,10 +37,10 @@ class Elevator:
         #self.occupants += event.partySize
         self.arrivalFloor = event.endFloor
 
-    def move(self, moveUp: bool):
-        if moveUp:
+    def move(self, desiredFloor: int):
+        if desiredFloor > self.currentFloor:
             self.currentFloor += 1
-        else:
+        elif desiredFloor < self.currentFloor:
             self.currentFloor -= 1
         self.arrivalFloor = self.currentFloor
 

@@ -22,7 +22,7 @@ class ElevatorService:
             elevatorWhenAvailable, elevatorNextFloor = elevator.available(currentTime)
             elevatorFloorChange = abs(elevatorNextFloor - event.startFloor)
             whenAvailable = elevator.speedPerFloor * elevatorFloorChange + elevatorWhenAvailable
-            if whenAvailable <= 0 and bestWhenAvailable:
+            if whenAvailable <= bestWhenAvailable:
                 bestElevator = elevator
                 bestWhenAvailable = elevatorWhenAvailable
 
@@ -38,14 +38,16 @@ class ElevatorService:
             bestElevator, bestWhenAvailable = self.__getNextElevator(event, currentTime)
             if bestWhenAvailable <= 0:
                 bestElevator.depart(event, currentTime)
-                processedEvents.add((event, currentTime - event.timestamp + bestElevator.travelDuration(event)))
-            else if bestElevator.free(currentTime):
-                nextToProcessEvents.add((event, bestElevator, bestWhenAvailable))
+                processedEvents.append((event, currentTime - event.timestamp + bestElevator.travelDuration(event)))
+            elif bestElevator.free(currentTime):
+                nextToProcessEvents.append((event, bestElevator, bestWhenAvailable))
 
         # Move the other elevator in the right direction up/down
-        nextToProcessEvents.sort(key = lambda x: x[1])
+        nextToProcessEvents.sort(key=lambda x: x[2])
+        numberOfElevatorToMove = min(len(self.elevators) - len(processedEvents), len(nextToProcessEvents))
+        for i in range(numberOfElevatorToMove):
+            event, elevator, whenAvailable = nextToProcessEvents[i]
+            elevator.move(event.endFloor)
 
-
-
-
+        # Return processed events
         return processedEvents
