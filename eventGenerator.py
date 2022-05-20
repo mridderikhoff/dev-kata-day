@@ -1,0 +1,28 @@
+import random
+from event import *
+import config
+
+
+class EventGenerator():
+    @staticmethod
+    def generateEvents(eventCount: int) -> [Event]:
+        events = []
+        i = 0
+        while i < eventCount:
+            events.append(EventGenerator.generateEvent())
+            i += 1
+        return events
+
+    @staticmethod
+    def generateEvent():
+        startFloor = random.randint(1, config.floors)
+        endFloor = EventGenerator.getEndFloor(startFloor)
+        timestamp = random.randint(0, config.secondsPerDay)
+        return Event(startFloor, endFloor, timestamp)
+
+    @staticmethod
+    def getEndFloor(startFloor):
+        endFloor = random.randint(1, config.floors)
+        while endFloor == startFloor:
+            endFloor = random.randint(1, config.floors)
+        return endFloor
