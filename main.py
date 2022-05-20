@@ -1,3 +1,4 @@
+import config
 from event import Event
 from eventManager import EventManager
 from eventGenerator import EventGenerator
@@ -31,7 +32,7 @@ if __name__ == '__main__':
     events = EventGenerator.generateEvents(100)
 
     print(f'Event count: {len(events)}')
-    for elevatorCount in range(1, 15):
+    for elevatorCount in range(1, config.maxElevatorCount + 1):
         eventManager = EventManager(elevatorCount, events)
         results = eventManager.simulateTime()
         printStats(results, elevatorCount)

@@ -2,8 +2,8 @@ import random
 from event import *
 import config
 
-#Generates random events & list of those events
 
+# Generates random events & list of those events
 class EventGenerator():
     @staticmethod
     def generateEvents(eventCount: int) -> [Event]:
@@ -20,7 +20,6 @@ class EventGenerator():
         startFloor = random.randint(1, config.floors)
         endFloor = EventGenerator.getEndFloor(startFloor)
         timestamp = random.randint(0, config.secondsPerDay)
-        # partySize = random.rantint(1, config.capacity)
         return Event(startFloor, endFloor, timestamp)
 
     @staticmethod

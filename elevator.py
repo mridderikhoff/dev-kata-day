@@ -27,13 +27,11 @@ class Elevator:
     def arrive(self):
         self.currentFloor = self.arrivalFloor
         self.occupants -= 1
-        # self.occupants -= event.partySize
 
     # assumes there is space for the occupant
     def depart(self, event: Event, currentTime: int):
         self.arrivalTime = currentTime + self.travelDuration(event)
         self.occupants += 1
-        # self.occupants += event.partySize
         self.arrivalFloor = event.endFloor
 
     def move(self, desiredFloor: int):

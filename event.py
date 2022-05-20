@@ -3,4 +3,3 @@ class Event:
         self.startFloor = startFloor
         self.endFloor = endFloor
         self.timestamp = timestamp
-        # self.partySize = partySize

@@ -5,7 +5,6 @@ from event import Event
 
 
 # Tracks state of elevator but not state of events
-
 class ElevatorService:
     elevators = []
 
@@ -14,7 +13,6 @@ class ElevatorService:
         for i in range(elevatorCount):
             self.elevators.append(Elevator(i))
 
-    # Returns next available elevator
     def __getNextElevator(self, event: Event, currentTime: int) -> (Elevator, int):
         bestElevator: Elevator = None
         bestWhenAvailable = 1000000
@@ -41,7 +39,6 @@ class ElevatorService:
             if bestWhenAvailable <= 0:
                 bestElevator.depart(event, currentTime)
                 processedEvents.append((event, currentTime - event.timestamp + bestElevator.travelDuration(event)))
-                # print('best elevator Id ' + str(bestElevator.id))
             elif bestElevator.free(currentTime):
                 nextToProcessEvents.append((event, bestElevator, bestWhenAvailable))
 
@@ -51,7 +48,5 @@ class ElevatorService:
         for i in range(numberOfElevatorToMove):
             event, elevator, whenAvailable = nextToProcessEvents[i]
             elevator.move(event.endFloor)
-            print(f'move elevator Id {elevator.id}')
 
-        # Return processed events
         return processedEvents
