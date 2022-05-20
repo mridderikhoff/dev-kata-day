@@ -28,10 +28,10 @@ def printStats(results: [(Event, int)], elevatorCount: int):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    events = EventGenerator.generateEvents(20)
+    events = EventGenerator.generateEvents(100)
 
-    print(f'Event c#: {len(events)}')
-    for elevatorCount in range(1, 4):
+    print(f'Event count: {len(events)}')
+    for elevatorCount in range(1, 15):
         eventManager = EventManager(elevatorCount, events)
         results = eventManager.simulateTime()
         printStats(results, elevatorCount)

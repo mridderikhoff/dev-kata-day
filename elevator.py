@@ -1,16 +1,14 @@
 import config
 from event import *
 
-# Elevator class
 
 class Elevator:
     def __init__(self, id: int):
         self.currentFloor = 1
         self.arrivalFloor = 1
-        # self.eventsQueue: [Event()] = []
         self.occupants = 0
-        self.speedPerFloor = 10
-        self.stopTime = 20
+        self.speedPerFloor = config.speedPerFloor
+        self.stopTime = config.stopTime
         self.arrivalTime = 0
         self.id = id
 
@@ -35,7 +33,7 @@ class Elevator:
     def depart(self, event: Event, currentTime: int):
         self.arrivalTime = currentTime + self.travelDuration(event)
         self.occupants += 1
-        #self.occupants += event.partySize
+        # self.occupants += event.partySize
         self.arrivalFloor = event.endFloor
 
     def move(self, desiredFloor: int):
@@ -47,13 +45,3 @@ class Elevator:
 
     def travelDuration(self, event) -> int:
         return (abs(event.startFloor - event.endFloor) * self.speedPerFloor) + self.stopTime
-
-    # def enter_elevator(self) -> bool:
-    #     if self.is_full():
-    #         return False
-    #     else:
-    #         self.occupants += 1
-    #         return True
-
-    # def is_full(self) -> bool:
-    #     return self.occupants >= config.capacity
