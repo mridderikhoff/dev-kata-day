@@ -6,7 +6,7 @@ from event import *
 class Elevator:
     def __init__(self):
         self.currentFloor = 1
-        self.arrivalFloor = None
+        self.arrivalFloor = 1
         # self.eventsQueue: [Event()] = []
         self.occupants = 0
         self.speedPerFloor = 10

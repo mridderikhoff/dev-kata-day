@@ -12,22 +12,28 @@ class EventManager:
         self.service = ElevatorService(elevatorCount)
 
         self.unfulfilledEvents = []
+        self.processedEvents = []
 
-    def simulateTime(self):
+    def simulateTime(self) -> [(Event, int)]:
         currentTime = 0
         while currentTime <= config.secondsPerDay:
             self.dispatchEvents(currentTime)
             currentTime += 1
+        return self.processedEvents  # TODO
 
     def dispatchEvents(self, currentTime: int):
         eventsToDispatch = list(filter(lambda event: event.timestamp == currentTime, self.events))
 
         if len(eventsToDispatch) > 0:
             self.unfulfilledEvents.extend(eventsToDispatch)
-            self.printDispatchingEvents(eventsToDispatch, currentTime)
+            # self.printDispatchingEvents(eventsToDispatch, currentTime)
 
-        # [(Event, totalTime)] timestamp, time they waited
-        processedEvents = self.service.processNextEvents(self.unfulfilledEvents, currentTime)
+            processedEvents = self.service.processNextEvents(self.unfulfilledEvents, currentTime)
+            for processedEvent, tripTime in processedEvents:
+                self.unfulfilledEvents.remove(processedEvent)
+
+            # print(processedEvents)
+            self.processedEvents.extend(processedEvents)
 
     def printDispatchingEvents(self, events, currentTime: int):
         for event in events:

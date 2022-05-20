@@ -3,6 +3,7 @@
 from elevator import Elevator
 from event import Event
 
+
 # Tracks state of elevator but not state of events
 
 class ElevatorService:
@@ -12,8 +13,8 @@ class ElevatorService:
         self.elevators = [Elevator()] * elevatorCount
 
     # Returns next available elevator
-    def __getNextElevator__(self, event: Event, currentTime: int) -> (Elevator, int):
-        bestElevator: Elevator
+    def __getNextElevator(self, event: Event, currentTime: int) -> (Elevator, int):
+        bestElevator: Elevator = None
         bestWhenAvailable = 1000000
 
         # Find the closest available one
@@ -34,7 +35,7 @@ class ElevatorService:
 
         # Take elevator when on the right floor
         for event in events:
-            bestElevator, bestWhenAvailable = self.getNextElevator(event, currentTime)
+            bestElevator, bestWhenAvailable = self.__getNextElevator(event, currentTime)
             if bestWhenAvailable <= 0:
                 bestElevator.depart(event, currentTime)
                 processedEvents.add((event, currentTime - event.timestamp + bestElevator.travelDuration(event)))
