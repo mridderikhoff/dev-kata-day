@@ -1,16 +1,15 @@
 import config
 from event import *
-# from elevatorService import ElevatorService
+from elevatorService import ElevatorService
 
 
 # Manages time, dispatches events (adds events to queue
 # Previously was dispatcher.py
-
 class EventManager:
     def __init__(self, elevatorCount: int, events: [Event]):
         self.elevatorCount = elevatorCount
         self.events = events
-        # self.service = ElevatorService(elevatorCount)
+        self.service = ElevatorService(elevatorCount)
 
         self.unfulfilledEvents = []
 
@@ -27,7 +26,8 @@ class EventManager:
             self.unfulfilledEvents.extend(eventsToDispatch)
             self.printDispatchingEvents(eventsToDispatch, currentTime)
 
-        # processedEvents = self.service.processNextEvents(self.unfulfilledEvents, currentTime)
+        # [(Event, totalTime)] timestamp, time they waited
+        processedEvents = self.service.processNextEvents(self.unfulfilledEvents, currentTime)
 
     def printDispatchingEvents(self, events, currentTime: int):
         for event in events:

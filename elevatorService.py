@@ -38,12 +38,11 @@ class ElevatorService:
             if bestWhenAvailable <= 0:
                 bestElevator.depart(event, currentTime)
                 processedEvents.add((event, currentTime - event.timestamp + bestElevator.travelDuration(event)))
-            else:
+            else if bestElevator.free(currentTime):
                 nextToProcessEvents.add((event, bestElevator, bestWhenAvailable))
 
-        
-
         # Move the other elevator in the right direction up/down
+        nextToProcessEvents.sort(key = lambda x: x[1])
 
 
 

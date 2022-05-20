@@ -21,6 +21,10 @@ class Elevator:
 
         return busyUntil, self.arrivalFloor
 
+    def free(self, currentTime: int) -> bool:
+        busyUntil = max(self.arrivalTime - currentTime, 0)
+        return busyUntil <= 0
+
     def arrive(self):
         self.currentFloor = self.arrivalFloor
         self.occupants -= 1
