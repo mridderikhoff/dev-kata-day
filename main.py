@@ -26,22 +26,13 @@ def printStats(results: [(Event, int)], elevatorCount: int):
     averageWait = totalTime / len(results)
     print(f'Elevators: {elevatorCount} | max: {maxTime}s | avg: {averageWait}s')
 
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     events = EventGenerator.generateEvents(20)
 
-    # elevatorCount = 5
-    # print(f'Event count: {len(events)}')
-    # dispatcher = EventManager(elevatorCount, events)
-    # results = dispatcher.simulateTime()
-    # printStats(results, elevatorCount)
-
-    print(f'Event count: {len(events)}')
-    for elevatorCount in range(1, 3):
-        dispatcher = EventManager(elevatorCount, events)
-        results = dispatcher.simulateTime()
+    print(f'Event c#: {len(events)}')
+    for elevatorCount in range(1, 4):
+        eventManager = EventManager(elevatorCount, events)
+        results = eventManager.simulateTime()
         printStats(results, elevatorCount)
-
-    # print(results)
 

@@ -4,7 +4,7 @@ from event import *
 # Elevator class
 
 class Elevator:
-    def __init__(self):
+    def __init__(self, id: int):
         self.currentFloor = 1
         self.arrivalFloor = 1
         # self.eventsQueue: [Event()] = []
@@ -12,6 +12,7 @@ class Elevator:
         self.speedPerFloor = 10
         self.stopTime = 20
         self.arrivalTime = 0
+        self.id = id
 
     def available(self, currentTime: int) -> (int, int):
         busyUntil = max(self.arrivalTime - currentTime, 0)
