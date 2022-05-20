@@ -1,5 +1,4 @@
-from dispatcher import Dispatcher
-from event import Event
+from eventManager import EventManager
 from eventGenerator import EventGenerator
 
 
@@ -20,6 +19,14 @@ def printEvents(events):
 if __name__ == '__main__':
     events = EventGenerator.generateEvents(10)
     printEvents(events)
-    Dispatcher.simulateTime(events)
+
+    # lowest elevator count with waitTime threshold met
+    # maxElevators = range(1, 3)
+    # for numElevators in maxElevators:
+    #     dispatcher = EventManager(numElevators, events)
+    #     EventManager.simulateTime(events)
+
+    dispatcher = EventManager(2, events)
+    dispatcher.simulateTime()
 
     # call Service.printResults
